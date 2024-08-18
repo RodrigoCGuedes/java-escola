@@ -1,6 +1,6 @@
 package teste;
 
-import escola.Membro;
+import escola.Pessoa;
 import escola.ProfessorSubstituto;
 
 public class TestaProfessorSubstituto {
@@ -11,7 +11,7 @@ public class TestaProfessorSubstituto {
 
 		System.out.println("\n --> Testando Construtores\n");
 
-		Membro pessoa = new Membro("Rodrigo", "98831-5133", "rodrigo@gmail.com");
+		Pessoa pessoa = new Pessoa("Rodrigo", true, "98831-5133", "rodrigo@gmail.com");
 		ProfessorSubstituto professor1 = new ProfessorSubstituto(pessoa, "Sistemas de Informação", 160);
 		ProfessorSubstituto professor2 = new ProfessorSubstituto(pessoa, "Sistemas de Informação", 160);
 		

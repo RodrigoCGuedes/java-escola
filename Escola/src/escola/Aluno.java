@@ -2,13 +2,13 @@ package escola;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import interfaces.Membro;
 
-public class Aluno {
+public class Aluno extends Pessoa implements Membro{
 
 	// --> Atributos
 
 	private String matricula;
-	private Membro pessoa;
 	private ArrayList<Disciplina> historico;
 
 	private static int ultimoNumero = 1;
@@ -16,15 +16,15 @@ public class Aluno {
 
 	// --> Construtores
 
-	public Aluno(Membro dadosPessoais) {
+	public Aluno(Pessoa pessoa) {
+		super(new Pessoa(pessoa));
 		this.matricula = geraMatricula();
-		this.pessoa = dadosPessoais;
 		this.historico = new ArrayList<>();
 	}
 
 	public Aluno(Aluno aluno) {
-		this.matricula = geraMatricula();
-		this.pessoa = aluno.getPessoa();
+		super(aluno.getPessoa());
+		this.matricula = aluno.geraMatricula();
 		this.historico = aluno.getHistorico();
 	}
 
@@ -40,10 +40,6 @@ public class Aluno {
 
 	public String getMatricula() {
 		return this.matricula;
-	}
-
-	public Membro getPessoa() {
-		return new Membro(this.pessoa);
 	}
 
 	public ArrayList<Disciplina> getHistorico() {
@@ -104,9 +100,17 @@ public class Aluno {
 		}
 		return soma / this.historico.size();
 	}
+	
+	@Override
+	public String nomeTratamento() {
+		if(getGenero()) {
+			return "Aluno " + getNome();
+		}
+		return "Aluna " + getNome();
+	}
 
 	public String toString() {
-		return matricula + " --> " + this.pessoa;
+		return this.matricula + " --> " + nomeTratamento() + "\n" + getPessoa();
 	}
 
 }

@@ -21,11 +21,11 @@ public class Regime {
 	
 	// --> Métodos
 
-	private String getDescricao() {
+	public String getDescricao() {
 		return this.descricao;
 	}
 
-	private float getSalario() {
+	public float getSalario() {
 		return this.salario;
 	}
 	

@@ -1,48 +1,55 @@
 package escola;
 
-public class ProfessorSubstituto {
-	
+import interfaces.Membro;
+
+public class ProfessorSubstituto extends Professor implements Membro{
+
 	// --> Atributos
 
-	private Membro pessoa;
-	private String departamento;
 	private int aulasMensais;
 	private static float valorHora = 40;
-	
+
 	// --> Construtores
 
-	public ProfessorSubstituto(Membro pessoa, String departamento, int aulasMensais) {
-		this.pessoa = new Membro(pessoa);
-		this.departamento = departamento;
+	public ProfessorSubstituto(Pessoa pessoa, String departamento, int aulasMensais) {
+		super(new Pessoa(pessoa), departamento);
 		this.aulasMensais = aulasMensais;
 	}
 
 	public ProfessorSubstituto(ProfessorSubstituto professor) {
-		this.pessoa = new Membro(professor.getPessoa());
-		this.departamento = professor.getDepartamento();
+		super(professor);
 		this.aulasMensais = professor.getAulasMensais();
 	}
-	
+
 	// --> Métodos
-
-	public Membro getPessoa() {
-		return new Membro(pessoa);
-	}
-
-	public String getDepartamento() {
-		return this.departamento;
-	}
 
 	public int getAulasMensais() {
 		return this.aulasMensais;
 	}
-	
+
 	public float getValorHora() {
 		return ProfessorSubstituto.valorHora;
 	}
 
+	public ProfessorSubstituto getProfessorSubstituto() {
+		return new ProfessorSubstituto(new Pessoa(getPessoa()), getDepartamento(), this.aulasMensais);
+	}
+
+	public boolean setValorHora(float valor) {
+		if (valor >= 0) {
+			ProfessorSubstituto.valorHora = valor;
+			return true;
+		}
+		return false;
+	}
+
+	public float calculaSalario() {
+		return this.aulasMensais * ProfessorSubstituto.valorHora;
+	}
+
 	public String toString() {
-		return pessoa + "\n --> " + departamento + "\nAulas Mensais: " + aulasMensais + " - Valor Hora: " + valorHora;
+		return "Professor Substituto --> " + nomeTratamento() + "\n" + getPessoa() + "\n --> " + getDepartamento()
+				+ "\nAulas Mensais: " + aulasMensais + " - Valor Hora: " + valorHora + "\nSalario: " + calculaSalario();
 	}
 
 }

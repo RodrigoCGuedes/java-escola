@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import escola.Aluno;
 import escola.Disciplina;
-import escola.Membro;
+import escola.Pessoa;
 
 public class TestaAluno {
 
@@ -14,7 +14,7 @@ public class TestaAluno {
 		
 		System.out.println("\n --> Testando Construtores\n");
 
-		Aluno aluno1 = new Aluno(new Membro("Rodrigo", "98831-5133", "rodrigo@gmail.com"));
+		Aluno aluno1 = new Aluno(new Pessoa("Rodrigo", true, "98831-5133", "rodrigo@gmail.com"));
 		Aluno aluno2 = new Aluno(aluno1);
 		
 		System.out.println(aluno1);
@@ -51,7 +51,7 @@ public class TestaAluno {
 		matricula += " ERRO ";
 		System.out.println("Tentando injetar em matricula: " + matricula);
 
-		Membro pessoa = aluno1.getPessoa();
+		Pessoa pessoa = aluno1.getPessoa();
 		pessoa = null;
 		System.out.println("Tentando apagar dados pessoais tornando " + pessoa);
 

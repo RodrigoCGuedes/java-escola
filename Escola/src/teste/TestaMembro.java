@@ -1,6 +1,6 @@
 package teste;
 
-import escola.Membro;
+import escola.Pessoa;
 
 public class TestaMembro {
 
@@ -10,8 +10,8 @@ public class TestaMembro {
 
 		System.out.println("\n --> Testando Construtores\n");
 
-		Membro membro1 = new Membro("Rodrigo", "98831-5133", "rodrigo@gmail.com");
-		Membro membro2 = new Membro(membro1);
+		Pessoa membro1 = new Pessoa("Rodrigo", true, "98831-5133", "rodrigo@gmail.com");
+		Pessoa membro2 = new Pessoa(membro1);
 
 		System.out.println(membro1);
 		System.out.println(membro2);
