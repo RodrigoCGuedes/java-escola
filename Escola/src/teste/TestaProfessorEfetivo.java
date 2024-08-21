@@ -13,7 +13,7 @@ public class TestaProfessorEfetivo {
 
 		System.out.println("\n --> Testando Construtores\n");
 
-		Pessoa pessoa = new Pessoa("Rodrigo", true, "98831-5133", "rodrigo@gmail.com");
+		Pessoa pessoa = new Pessoa("Rodrigo", true, "98822-3344", "rodrigo@gmail.com");
 		Regime regime = new Regime("40 Horas", 10000);
 
 		ProfessorEfetivo professor1 = new ProfessorEfetivo(pessoa, "Sistemas de Informação", regime, LocalDate.now());

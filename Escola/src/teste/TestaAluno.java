@@ -14,7 +14,7 @@ public class TestaAluno {
 		
 		System.out.println("\n --> Testando Construtores\n");
 
-		Aluno aluno1 = new Aluno(new Pessoa("Rodrigo", true, "98831-5133", "rodrigo@gmail.com"));
+		Aluno aluno1 = new Aluno(new Pessoa("Rodrigo", true, "98822-3344", "rodrigo@gmail.com"));
 		Aluno aluno2 = new Aluno(aluno1);
 		
 		System.out.println(aluno1);

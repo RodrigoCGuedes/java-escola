@@ -10,7 +10,7 @@ public class TestaMembro {
 
 		System.out.println("\n --> Testando Construtores\n");
 
-		Pessoa membro1 = new Pessoa("Rodrigo", true, "98831-5133", "rodrigo@gmail.com");
+		Pessoa membro1 = new Pessoa("Rodrigo", true, "98822-3344", "rodrigo@gmail.com");
 		Pessoa membro2 = new Pessoa(membro1);
 
 		System.out.println(membro1);
