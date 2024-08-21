@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import escola.Aluno;
 import escola.Disciplina;
 import escola.Pessoa;
+import excecao.NotaNegativaExcecao;
 
 public class TestaAluno {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NotaNegativaExcecao {
 		
 		// Testando Construtores
 		

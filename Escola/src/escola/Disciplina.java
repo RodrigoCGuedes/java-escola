@@ -2,6 +2,8 @@ package escola;
 
 import java.util.ArrayList;
 
+import excecao.NotaNegativaExcecao;
+
 public class Disciplina {
 	
 	// --> Atributos
@@ -20,7 +22,7 @@ public class Disciplina {
 		this.avaliacoes = new ArrayList<>();
 	}
 
-	public Disciplina(Disciplina disciplina) {
+	public Disciplina(Disciplina disciplina) throws NotaNegativaExcecao {
 		this.id = geraId();
 		this.descricao = disciplina.getDescricao();
 		this.avaliacoes = disciplina.getAvaliacoes();
@@ -40,7 +42,7 @@ public class Disciplina {
 		return this.descricao;
 	}
 
-	public Avaliacao getAvaliacao(String id) {
+	public Avaliacao getAvaliacao(String id) throws NotaNegativaExcecao {
 		for (Avaliacao contador : this.avaliacoes) {
 			if (contador.getId().equals(id)) {
 				return new Avaliacao(contador);
@@ -49,7 +51,7 @@ public class Disciplina {
 		return null;
 	}
 
-	public ArrayList<Avaliacao> getAvaliacoes() {
+	public ArrayList<Avaliacao> getAvaliacoes() throws NotaNegativaExcecao {
 		ArrayList<Avaliacao> copia = new ArrayList<>();
 		for (Avaliacao contador : this.avaliacoes) {
 			copia.add(new Avaliacao(contador));
@@ -65,7 +67,7 @@ public class Disciplina {
 		return true;
 	}
 
-	public boolean insereAvaliacao(String descricao, float valor) {
+	public boolean insereAvaliacao(String descricao, float valor) throws NotaNegativaExcecao {
 		if (descricao == null) {
 			return false;
 		}

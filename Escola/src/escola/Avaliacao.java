@@ -1,5 +1,7 @@
 package escola;
 
+import excecao.NotaNegativaExcecao;
+
 public class Avaliacao {
 	
 	// --> Atributos
@@ -12,16 +14,16 @@ public class Avaliacao {
 	
 	// --> Construtores
 
-	public Avaliacao(String descricao, float valor) {
+	public Avaliacao(String descricao, float valor) throws NotaNegativaExcecao {
 		this.id = geraId();
 		this.descricao = descricao;
-		this.valor = valor;
+		setValor(valor);
 	}
 
-	public Avaliacao(Avaliacao avaliacao) {
+	public Avaliacao(Avaliacao avaliacao) throws NotaNegativaExcecao {
 		this.id = avaliacao.geraId();
 		this.descricao = avaliacao.getDescricao();
-		this.valor = avaliacao.getValor();
+		setValor(avaliacao.getValor());
 	}
 	
 	// --> Métodos
@@ -40,6 +42,14 @@ public class Avaliacao {
 
 	public float getValor() {
 		return this.valor;
+	}
+	
+	public boolean setValor(float valor) throws NotaNegativaExcecao{
+		if(valor < 0) {
+			throw new NotaNegativaExcecao(getId());
+		}
+		this.valor = valor;
+		return true;
 	}
 	
 	public String toString() {

@@ -4,28 +4,42 @@ import java.util.ArrayList;
 
 import escola.Avaliacao;
 import escola.Disciplina;
+import excecao.NotaNegativaExcecao;
 
 public class TestaDisciplina {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NotaNegativaExcecao{
 
 		// Testando Construtores
 
 		System.out.println("\n --> Testando Construtores\n");
-
+		
 		Disciplina disciplina1 = new Disciplina("Calculo");
-		Disciplina disciplina2 = new Disciplina(disciplina1);
 
 		System.out.println(disciplina1);
-		System.out.println(disciplina2);
+		
+		Disciplina disciplina2;
+		try {
+			disciplina2 = new Disciplina(disciplina1);
+			System.out.println(disciplina2);
+		} catch (NotaNegativaExcecao e) {
+			System.out.println(e);
+		}
 
 		// Testando inserção e impressão de Avaliacões
 
 		System.out.println("\n --> Testando inserção e impressão de Avaliacões\n");
 
-		disciplina1.insereAvaliacao(new Avaliacao("1°Prova", 9));
-		disciplina1.insereAvaliacao(new Avaliacao("2°Prova", 10));
-		disciplina1.insereAvaliacao(new Avaliacao("3°Prova", 9));
+		try {
+			disciplina1.insereAvaliacao(new Avaliacao("1°Prova", 9));
+			disciplina1.insereAvaliacao(new Avaliacao("2°Prova", 10));
+			disciplina1.insereAvaliacao(new Avaliacao("3°Prova", 9));
+			
+			// Testando exceção NotaNegativaExcecao
+			disciplina1.insereAvaliacao(new Avaliacao("4°Prova", -1));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 
 		System.out.println(disciplina1);
 		System.out.println(disciplina1.exibirAvaliacoes());
@@ -56,8 +70,13 @@ public class TestaDisciplina {
 		descricao += " ERRO ";
 		System.out.println("Tentando injetar em descricao: " + descricao);
 
-		ArrayList<Avaliacao> avaliacoes = disciplina1.getAvaliacoes();
-		avaliacoes.clear();
+		try {
+			ArrayList<Avaliacao> avaliacoes = disciplina1.getAvaliacoes();
+			avaliacoes.clear();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
 		System.out.println("Tentando remover todas avaliacões.");
 
 		System.out.println("\nResultado:\n" + disciplina1);

@@ -2,6 +2,7 @@ package escola;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import excecao.NotaNegativaExcecao;
 import interfaces.Membro;
 
 public class Aluno extends Pessoa implements Membro{
@@ -22,7 +23,7 @@ public class Aluno extends Pessoa implements Membro{
 		this.historico = new ArrayList<>();
 	}
 
-	public Aluno(Aluno aluno) {
+	public Aluno(Aluno aluno) throws NotaNegativaExcecao {
 		super(aluno.getPessoa());
 		this.matricula = aluno.geraMatricula();
 		this.historico = aluno.getHistorico();
@@ -42,7 +43,7 @@ public class Aluno extends Pessoa implements Membro{
 		return this.matricula;
 	}
 
-	public ArrayList<Disciplina> getHistorico() {
+	public ArrayList<Disciplina> getHistorico() throws NotaNegativaExcecao {
 		ArrayList<Disciplina> copia = new ArrayList<>();
 		for (Disciplina contador : this.historico) {
 			copia.add(new Disciplina(contador));
@@ -50,7 +51,7 @@ public class Aluno extends Pessoa implements Membro{
 		return copia;
 	}
 
-	public Disciplina getDisciplina(String id) {
+	public Disciplina getDisciplina(String id) throws NotaNegativaExcecao {
 		for (Disciplina contador : this.historico) {
 			if (contador.getId().equals(id)) {
 				return new Disciplina(contador);
@@ -59,7 +60,7 @@ public class Aluno extends Pessoa implements Membro{
 		return null;
 	}
 
-	public boolean insereDisciplina(Disciplina disciplina) {
+	public boolean insereDisciplina(Disciplina disciplina) throws NotaNegativaExcecao {
 		if (disciplina == null) {
 			return false;
 		}

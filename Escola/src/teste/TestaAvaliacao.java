@@ -1,6 +1,7 @@
 package teste;
 
 import escola.Avaliacao;
+import excecao.NotaNegativaExcecao;
 
 public class TestaAvaliacao {
 
@@ -10,29 +11,37 @@ public class TestaAvaliacao {
 
 		System.out.println("\n --> Testando Construtores\n");
 
-		Avaliacao avaliacao1 = new Avaliacao("1°Prova", 8);
-		System.out.println(avaliacao1);
+		Avaliacao avaliacao1;
+		Avaliacao avaliacao2;
 
-		Avaliacao avaliacao2 = new Avaliacao(avaliacao1);
-		System.out.println(avaliacao2);
+		try {
+			avaliacao1 = new Avaliacao("1°Prova", 8);
+			System.out.println(avaliacao1);
 
-		// Testando Encapsulamento
+			avaliacao2 = new Avaliacao(avaliacao1);
+			System.out.println(avaliacao2);
 
-		System.out.println("\n --> Testando Encapsulamento\n");
+			// Testando Encapsulamento
 
-		String descricao = avaliacao1.getDescricao();
-		descricao += " ERRO ";
-		System.out.println("Tentando injetar em descricao: " + descricao);
+			System.out.println("\n --> Testando Encapsulamento\n");
 
-		float valor = avaliacao1.getValor();
-		valor += 1000;
-		System.out.println("Tentando injetar em valor: " + valor);
+			String descricao = avaliacao1.getDescricao();
+			descricao += " ERRO ";
+			System.out.println("Tentando injetar em descricao: " + descricao);
 
-		String id = avaliacao1.getId();
-		id += " ERRO ";
-		System.out.println("Tentando injetar em id: " + id);
+			float valor = avaliacao1.getValor();
+			valor += 1000;
+			System.out.println("Tentando injetar em valor: " + valor);
 
-		System.out.println("\n" + avaliacao1);
+			String id = avaliacao1.getId();
+			id += " ERRO ";
+			System.out.println("Tentando injetar em id: " + id);
+
+			System.out.println("\n" + avaliacao1);
+
+		} catch (NotaNegativaExcecao e) {
+			System.out.println(e);
+		}
 
 	}
 
