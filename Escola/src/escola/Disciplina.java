@@ -1,14 +1,17 @@
 package escola;
 
 import java.util.ArrayList;
-
-import excecao.NotaNegativaExcecao;
+import java.util.Collections;
+import excecao.NotaInvalidaExcecao;
+import comparadores.CriterioNotaCrescente;
+import comparadores.CriterioNotaDecrescente;
 
 public class Disciplina {
 	
 	// --> Atributos
 	
 	private String id;
+	private String nome;
 	private String descricao;
 	private ArrayList<Avaliacao> avaliacoes;
 
@@ -16,16 +19,18 @@ public class Disciplina {
 	
 	// --> Construtores
 
-	public Disciplina(String descricao) {
+	public Disciplina(String nome, String descricao) {
 		this.id = geraId();
+		this.nome = nome;
 		this.descricao = descricao;
 		this.avaliacoes = new ArrayList<>();
 	}
 
-	public Disciplina(Disciplina disciplina) throws NotaNegativaExcecao {
-		this.id = geraId();
+	public Disciplina(Disciplina disciplina) throws NotaInvalidaExcecao {
+		this.id = disciplina.getId();
+		this.nome = disciplina.getNome();
 		this.descricao = disciplina.getDescricao();
-		this.avaliacoes = disciplina.getAvaliacoes();
+		this.avaliacoes = disciplina.getAvaliacoesCrescente();
 	}
 
 	// --> Métodos
@@ -37,12 +42,16 @@ public class Disciplina {
 	public String getId() {
 		return this.id;
 	}
+	
+	public String getNome() {
+		return this.nome;
+	}
 
 	public String getDescricao() {
 		return this.descricao;
 	}
 
-	public Avaliacao getAvaliacao(String id) throws NotaNegativaExcecao {
+	public Avaliacao getAvaliacao(String id) throws NotaInvalidaExcecao {
 		for (Avaliacao contador : this.avaliacoes) {
 			if (contador.getId().equals(id)) {
 				return new Avaliacao(contador);
@@ -51,11 +60,21 @@ public class Disciplina {
 		return null;
 	}
 
-	public ArrayList<Avaliacao> getAvaliacoes() throws NotaNegativaExcecao {
+	public ArrayList<Avaliacao> getAvaliacoesCrescente() throws NotaInvalidaExcecao {
 		ArrayList<Avaliacao> copia = new ArrayList<>();
 		for (Avaliacao contador : this.avaliacoes) {
 			copia.add(new Avaliacao(contador));
 		}
+		Collections.sort(copia, new CriterioNotaCrescente());
+		return copia;
+	}
+	
+	public ArrayList<Avaliacao> getAvaliacoesDecrescente() throws NotaInvalidaExcecao {
+		ArrayList<Avaliacao> copia = new ArrayList<>();
+		for (Avaliacao contador : this.avaliacoes) {
+			copia.add(new Avaliacao(contador));
+		}
+		Collections.sort(copia, new CriterioNotaDecrescente());
 		return copia;
 	}
 
@@ -67,7 +86,7 @@ public class Disciplina {
 		return true;
 	}
 
-	public boolean insereAvaliacao(String descricao, float valor) throws NotaNegativaExcecao {
+	public boolean insereAvaliacao(String descricao, float valor) throws NotaInvalidaExcecao {
 		if (descricao == null) {
 			return false;
 		}
@@ -102,7 +121,7 @@ public class Disciplina {
 	}
 
 	public String toString() {
-		return id + " -> " + descricao;
+		return this.id + " -> " + this.nome + "\n - " + this.descricao;
 	}
 
 }

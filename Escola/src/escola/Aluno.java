@@ -2,8 +2,10 @@ package escola;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import excecao.NotaNegativaExcecao;
+import java.util.Collections;
+import excecao.NotaInvalidaExcecao;
 import interfaces.Membro;
+import comparadores.CriterioDisciplinaAlfabetica;
 
 public class Aluno extends Pessoa implements Membro{
 
@@ -23,10 +25,10 @@ public class Aluno extends Pessoa implements Membro{
 		this.historico = new ArrayList<>();
 	}
 
-	public Aluno(Aluno aluno) throws NotaNegativaExcecao {
+	public Aluno(Aluno aluno) throws NotaInvalidaExcecao {
 		super(aluno.getPessoa());
 		this.matricula = aluno.geraMatricula();
-		this.historico = aluno.getHistorico();
+		this.historico = aluno.getHistoricoAlfabetica();
 	}
 
 	// --> Métodos
@@ -43,15 +45,16 @@ public class Aluno extends Pessoa implements Membro{
 		return this.matricula;
 	}
 
-	public ArrayList<Disciplina> getHistorico() throws NotaNegativaExcecao {
+	public ArrayList<Disciplina> getHistoricoAlfabetica() throws NotaInvalidaExcecao {
 		ArrayList<Disciplina> copia = new ArrayList<>();
 		for (Disciplina contador : this.historico) {
 			copia.add(new Disciplina(contador));
 		}
+		Collections.sort(copia, new CriterioDisciplinaAlfabetica());
 		return copia;
 	}
 
-	public Disciplina getDisciplina(String id) throws NotaNegativaExcecao {
+	public Disciplina getDisciplina(String id) throws NotaInvalidaExcecao {
 		for (Disciplina contador : this.historico) {
 			if (contador.getId().equals(id)) {
 				return new Disciplina(contador);
@@ -60,7 +63,7 @@ public class Aluno extends Pessoa implements Membro{
 		return null;
 	}
 
-	public boolean insereDisciplina(Disciplina disciplina) throws NotaNegativaExcecao {
+	public boolean insereDisciplina(Disciplina disciplina) throws NotaInvalidaExcecao {
 		if (disciplina == null) {
 			return false;
 		}
@@ -68,11 +71,11 @@ public class Aluno extends Pessoa implements Membro{
 		return true;
 	}
 
-	public boolean insereDisciplina(String descricao) {
+	public boolean insereDisciplina(String nome, String descricao) {
 		if (descricao == null) {
 			return false;
 		}
-		historico.add(new Disciplina(descricao));
+		historico.add(new Disciplina(nome, descricao));
 		return true;
 	}
 
@@ -86,10 +89,24 @@ public class Aluno extends Pessoa implements Membro{
 		return false;
 	}
 
-	public String exibirHistorico() {
+	public String exibirNotasCrescente() throws NotaInvalidaExcecao {
 		String resultado = "";
-		for (Disciplina contador : this.historico) {
-			resultado += "\n" + contador;
+		for (Disciplina disciplina : getHistoricoAlfabetica()) {
+			resultado += "\n" + disciplina + ":";
+			for (Avaliacao avaliacao : disciplina.getAvaliacoesCrescente()) {
+				resultado += "\n\t" + avaliacao;
+			}
+		}
+		return resultado;
+	}
+	
+	public String exibirNotasDecrescente() throws NotaInvalidaExcecao {
+		String resultado = "";
+		for (Disciplina disciplina : getHistoricoAlfabetica()) {
+			resultado += "\n" + disciplina + ":";
+			for (Avaliacao avaliacao : disciplina.getAvaliacoesDecrescente()) {
+				resultado += "\n\t" + avaliacao;
+			}
 		}
 		return resultado;
 	}

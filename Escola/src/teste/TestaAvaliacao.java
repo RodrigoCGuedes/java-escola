@@ -1,7 +1,7 @@
 package teste;
 
 import escola.Avaliacao;
-import excecao.NotaNegativaExcecao;
+import excecao.NotaInvalidaExcecao;
 
 public class TestaAvaliacao {
 
@@ -39,7 +39,7 @@ public class TestaAvaliacao {
 
 			System.out.println("\n" + avaliacao1);
 
-		} catch (NotaNegativaExcecao e) {
+		} catch (NotaInvalidaExcecao e) {
 			System.out.println(e);
 		}
 

@@ -1,13 +1,13 @@
 package excecao;
 
-public class NotaNegativaExcecao extends Exception {
+public class NotaInvalidaExcecao extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String mensagem;
 	
-	public NotaNegativaExcecao(String id) {
-		this.mensagem = "Nota negativa no aluno -> ID: " + id;
+	public NotaInvalidaExcecao(String id) {
+		this.mensagem = "Nota invalida no aluno -> ID: " + id;
 	}
 	
 	public String toString() {

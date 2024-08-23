@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import escola.Avaliacao;
 import escola.Disciplina;
-import excecao.NotaNegativaExcecao;
+import excecao.NotaInvalidaExcecao;
 
 public class TestaDisciplina {
 
-	public static void main(String[] args) throws NotaNegativaExcecao{
+	public static void main(String[] args) throws NotaInvalidaExcecao{
 
 		// Testando Construtores
 
 		System.out.println("\n --> Testando Construtores\n");
 		
-		Disciplina disciplina1 = new Disciplina("Calculo");
+		Disciplina disciplina1 = new Disciplina("Calculo I", "Núcleo de Ciencias Exatas");
 
 		System.out.println(disciplina1);
 		
@@ -22,7 +22,7 @@ public class TestaDisciplina {
 		try {
 			disciplina2 = new Disciplina(disciplina1);
 			System.out.println(disciplina2);
-		} catch (NotaNegativaExcecao e) {
+		} catch (NotaInvalidaExcecao e) {
 			System.out.println(e);
 		}
 
@@ -71,7 +71,7 @@ public class TestaDisciplina {
 		System.out.println("Tentando injetar em descricao: " + descricao);
 
 		try {
-			ArrayList<Avaliacao> avaliacoes = disciplina1.getAvaliacoes();
+			ArrayList<Avaliacao> avaliacoes = disciplina1.getAvaliacoesCrescente();
 			avaliacoes.clear();
 		} catch (Exception e) {
 			System.out.println(e);

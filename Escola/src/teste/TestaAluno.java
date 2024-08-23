@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import escola.Aluno;
 import escola.Disciplina;
 import escola.Pessoa;
-import excecao.NotaNegativaExcecao;
+import excecao.NotaInvalidaExcecao;
 
 public class TestaAluno {
 
-	public static void main(String[] args) throws NotaNegativaExcecao {
+	public static void main(String[] args) throws NotaInvalidaExcecao {
 		
 		// Testando Construtores
 		
@@ -25,18 +25,32 @@ public class TestaAluno {
 
 		System.out.println("\n --> Testando inserção e impressão de Disciplinas e Histórico\n");
 		
-		Disciplina disciplina1 = new Disciplina("Algoritimos");
-		disciplina1.insereAvaliacao("1°Prova", 10);
-		disciplina1.insereAvaliacao("2°Prova", 5);
+		Disciplina disciplina1 = new Disciplina("Cálculo I", "Núclo de Exatas.");
+		disciplina1.insereAvaliacao("1°Prova", (float)8.22);
+		disciplina1.insereAvaliacao("2°Prova", 3);
 		
-		Disciplina disciplina2 = new Disciplina("Estrutura de Dados");
+		Disciplina disciplina2 = new Disciplina("Algoritimos", "Núclo de Computação.");
 		disciplina2.insereAvaliacao("1°Prova", 10);
 		disciplina2.insereAvaliacao("2°Prova", 5);
 		
+		Disciplina disciplina3 = new Disciplina("Estrutura de Dados", "Núclo de Computação.");
+		disciplina3.insereAvaliacao("1°Prova", 10);
+		disciplina3.insereAvaliacao("2°Prova", 2);
+		
+		Disciplina disciplina4 = new Disciplina("Banco de Dados", "Núclo de Computação.");
+		disciplina4.insereAvaliacao("1°Prova", 3);
+		disciplina4.insereAvaliacao("2°Prova", 7);
+		
 		aluno1.insereDisciplina(disciplina1);
 		aluno1.insereDisciplina(disciplina2);
+		aluno1.insereDisciplina(disciplina3);
+		aluno1.insereDisciplina(disciplina4);
 		
-		System.out.println("Histórico: " + aluno1.exibirHistorico());
+		// Testando relação de histórico.
+		
+		System.out.println("Histórico crescente: \n" + aluno1.exibirNotasCrescente());
+		
+		System.out.println("\nHistórico decrescente: \n" + aluno1.exibirNotasDecrescente());
 		
 		// Testando calculo do IRA
 
@@ -56,12 +70,12 @@ public class TestaAluno {
 		pessoa = null;
 		System.out.println("Tentando apagar dados pessoais tornando " + pessoa);
 
-		ArrayList<Disciplina> historico = aluno1.getHistorico();
+		ArrayList<Disciplina> historico = aluno1.getHistoricoAlfabetica();
 		historico.clear();
 		System.out.println("Tentando remover todas disciplinas.");
 
 		System.out.println("\nResultado:\n\n" + aluno1);
-		System.out.println("Histórico:" + aluno1.exibirHistorico());
+		System.out.println("\nHistórico:" + aluno1.exibirNotasCrescente());
 		
 		
 	}

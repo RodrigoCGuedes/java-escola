@@ -1,6 +1,6 @@
 package escola;
 
-import excecao.NotaNegativaExcecao;
+import excecao.NotaInvalidaExcecao;
 
 public class Avaliacao {
 	
@@ -14,13 +14,13 @@ public class Avaliacao {
 	
 	// --> Construtores
 
-	public Avaliacao(String descricao, float valor) throws NotaNegativaExcecao {
+	public Avaliacao(String descricao, float valor) throws NotaInvalidaExcecao {
 		this.id = geraId();
 		this.descricao = descricao;
 		setValor(valor);
 	}
 
-	public Avaliacao(Avaliacao avaliacao) throws NotaNegativaExcecao {
+	public Avaliacao(Avaliacao avaliacao) throws NotaInvalidaExcecao {
 		this.id = avaliacao.geraId();
 		this.descricao = avaliacao.getDescricao();
 		setValor(avaliacao.getValor());
@@ -44,9 +44,9 @@ public class Avaliacao {
 		return this.valor;
 	}
 	
-	public boolean setValor(float valor) throws NotaNegativaExcecao{
-		if(valor < 0) {
-			throw new NotaNegativaExcecao(getId());
+	public boolean setValor(float valor) throws NotaInvalidaExcecao{
+		if(valor < 0 || valor > 100) {
+			throw new NotaInvalidaExcecao(getId());
 		}
 		this.valor = valor;
 		return true;
