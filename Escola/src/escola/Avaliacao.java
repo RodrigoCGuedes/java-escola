@@ -1,8 +1,9 @@
 package escola;
 
 import excecao.NotaInvalidaExcecao;
+import interfaces.Valor;
 
-public class Avaliacao {
+public class Avaliacao implements Valor{
 	
 	// --> Atributos
 	
@@ -50,6 +51,11 @@ public class Avaliacao {
 		}
 		this.valor = valor;
 		return true;
+	}
+	
+	public boolean equals(Avaliacao avaliacao) {
+		if(this.id == avaliacao.getId()) return true;
+		return false;
 	}
 	
 	public String toString() {

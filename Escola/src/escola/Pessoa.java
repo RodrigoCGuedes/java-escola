@@ -1,6 +1,8 @@
 package escola;
 
-public class Pessoa {
+import interfaces.Alfabetica;
+
+public class Pessoa implements Alfabetica{
 
 	// -- Atributos
 

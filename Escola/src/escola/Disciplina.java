@@ -3,10 +3,12 @@ package escola;
 import java.util.ArrayList;
 import java.util.Collections;
 import excecao.NotaInvalidaExcecao;
-import comparadores.CriterioNotaCrescente;
-import comparadores.CriterioNotaDecrescente;
+import interfaces.Alfabetica;
+import interfaces.Valor;
+import comparadores.CriterioValorCrescente;
+import comparadores.CriterioValorDecrescente;
 
-public class Disciplina {
+public class Disciplina implements Alfabetica, Valor {
 	
 	// --> Atributos
 	
@@ -50,6 +52,10 @@ public class Disciplina {
 	public String getDescricao() {
 		return this.descricao;
 	}
+	
+	public float getValor() {
+		return calculaMedia();
+	}
 
 	public Avaliacao getAvaliacao(String id) throws NotaInvalidaExcecao {
 		for (Avaliacao contador : this.avaliacoes) {
@@ -65,7 +71,7 @@ public class Disciplina {
 		for (Avaliacao contador : this.avaliacoes) {
 			copia.add(new Avaliacao(contador));
 		}
-		Collections.sort(copia, new CriterioNotaCrescente());
+		Collections.sort(copia, new CriterioValorCrescente());
 		return copia;
 	}
 	
@@ -74,7 +80,7 @@ public class Disciplina {
 		for (Avaliacao contador : this.avaliacoes) {
 			copia.add(new Avaliacao(contador));
 		}
-		Collections.sort(copia, new CriterioNotaDecrescente());
+		Collections.sort(copia, new CriterioValorDecrescente());
 		return copia;
 	}
 

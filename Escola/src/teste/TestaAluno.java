@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import escola.Aluno;
 import escola.Disciplina;
 import escola.Pessoa;
+import excecao.HistoricoVazioExcessao;
 import excecao.NotaInvalidaExcecao;
 
 public class TestaAluno {
@@ -19,13 +20,16 @@ public class TestaAluno {
 		Aluno aluno2 = new Aluno(aluno1);
 		
 		System.out.println(aluno1);
-		System.out.println(aluno2);
+		System.out.println("\nCopia:\n" + aluno2);
+		
+		
+		System.out.println("Testa equals: " + aluno1.equals(aluno2));
 		
 		// Testando inserção e impressão de Disciplinas
 
 		System.out.println("\n --> Testando inserção e impressão de Disciplinas e Histórico\n");
 		
-		Disciplina disciplina1 = new Disciplina("Cálculo I", "Núclo de Exatas.");
+		Disciplina disciplina1 = new Disciplina("Cálculo I", "Núclo de Exatas");
 		disciplina1.insereAvaliacao("1°Prova", (float)8.22);
 		disciplina1.insereAvaliacao("2°Prova", 3);
 		
@@ -41,22 +45,35 @@ public class TestaAluno {
 		disciplina4.insereAvaliacao("1°Prova", 3);
 		disciplina4.insereAvaliacao("2°Prova", 7);
 		
+		Disciplina disciplina5 = new Disciplina("Defesa Contra as Artes das Trevas.", "EAD - Hogwarts");
+		disciplina5.insereAvaliacao("1°Prova", 10);
+		disciplina5.insereAvaliacao("2°Prova", 10);
+		
 		aluno1.insereDisciplina(disciplina1);
 		aluno1.insereDisciplina(disciplina2);
 		aluno1.insereDisciplina(disciplina3);
 		aluno1.insereDisciplina(disciplina4);
+		aluno1.insereDisciplina(disciplina5);
 		
 		// Testando relação de histórico.
 		
-		System.out.println("Histórico crescente: \n" + aluno1.exibirNotasCrescente());
+		System.out.println("\nHistórico notas crescente:" + aluno1.exibirNotasCrescente());
 		
-		System.out.println("\nHistórico decrescente: \n" + aluno1.exibirNotasDecrescente());
+		System.out.println("\n\nHistórico notas decrescente:" + aluno1.exibirNotasDecrescente());
+		
+		System.out.println("\nHistórico em ordem alfabética crescente:" + aluno1.exibirAlfabeticoCrescente());
+		
+		System.out.println("\n\nHistórico em ordem alfabética decrescente:" + aluno1.exibirAlfabeticoDecrescente());
 		
 		// Testando calculo do IRA
 
 		System.out.println("\n --> Testando calculo do IRA\n");
 		
-		System.out.println("IRA: " + aluno1.calculaIRA());
+		try {
+			System.out.println("IRA: " + aluno1.calculaIRA());
+		} catch (HistoricoVazioExcessao e) {
+			System.out.println(e);
+		}
 		
 		// Testando Encapsulamento
 		
@@ -70,7 +87,7 @@ public class TestaAluno {
 		pessoa = null;
 		System.out.println("Tentando apagar dados pessoais tornando " + pessoa);
 
-		ArrayList<Disciplina> historico = aluno1.getHistoricoAlfabetica();
+		ArrayList<Disciplina> historico = aluno1.historicoCrescente();
 		historico.clear();
 		System.out.println("Tentando remover todas disciplinas.");
 
