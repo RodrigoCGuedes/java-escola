@@ -2,7 +2,7 @@ package escola;
 
 import interfaces.Membro;
 
-public abstract class Professor extends Pessoa implements Membro{
+public abstract class Professor extends Pessoa implements Membro {
 
 	private String departamento;
 
@@ -19,16 +19,16 @@ public abstract class Professor extends Pessoa implements Membro{
 	public String getDepartamento() {
 		return this.departamento;
 	}
-	
+
 	public String nomeTratamento() {
 		if (getGenero()) {
 			return "Sr. " + getNome();
 		}
 		return "Sra. " + getNome();
 	}
-	
+
 	public abstract float calculaSalario();
-	
+
 	public String toString() {
 		return nomeTratamento() + " - " + this.departamento;
 	}

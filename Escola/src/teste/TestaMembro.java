@@ -14,6 +14,9 @@ public class TestaMembro {
 		Pessoa membro2 = new Pessoa(membro1);
 
 		System.out.println(membro1);
+		
+		System.out.println("\nCopia: ");
+		
 		System.out.println(membro2);
 
 		// Testando Encapsulamento

@@ -16,6 +16,9 @@ public class TestaProfessorSubstituto {
 		ProfessorSubstituto professor2 = new ProfessorSubstituto(pessoa, "Sistemas de Informação", 160);
 		
 		System.out.println(professor1);
+		
+		System.out.println("\nCopia: ");
+		
 		System.out.println("\n" + professor2);
 		
 		// Testando Encapsulamento

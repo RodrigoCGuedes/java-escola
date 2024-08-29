@@ -1,15 +1,18 @@
 package escola;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import comparadores.CriterioValorCrescente;
 import comparadores.CriterioValorDecrescente;
 import excecao.AlunoNaoAtualizadoExcecao;
 import excecao.AlunoNaoInseridoExcecao;
-import excecao.HistoricoVazioExcessao;
+import excecao.HistoricoVazioExcecao;
+import excecao.IRAInvalidoExcecao;
+import lista.ListaGenerica;
 
 public class Ranking {
 
-	HashMap<Conceito, Character> ranking;
+	private HashMap<Conceito, Character> ranking;
 
 	public Ranking() {
 		this.ranking = new HashMap<>();
@@ -27,7 +30,7 @@ public class Ranking {
 		return this.ranking;
 	}
 
-	public boolean inserir(Aluno aluno) throws AlunoNaoInseridoExcecao, HistoricoVazioExcessao {
+	public boolean inserir(Aluno aluno) throws AlunoNaoInseridoExcecao, IRAInvalidoExcecao, HistoricoVazioExcecao {
 		Conceito conceito = new Conceito(aluno.getMatricula(), aluno.calculaIRA());
 
 		if (!ranking.containsKey(conceito)) {
@@ -39,8 +42,8 @@ public class Ranking {
 		throw new AlunoNaoInseridoExcecao(aluno.getMatricula());
 	}
 
-	public boolean inserir(ArrayList<Aluno> alunos) throws AlunoNaoInseridoExcecao, HistoricoVazioExcessao {
-		for (Aluno aluno : alunos) {
+	public boolean inserir(ListaGenerica<Aluno> alunos) throws AlunoNaoInseridoExcecao, HistoricoVazioExcecao, IRAInvalidoExcecao {
+		for (Aluno aluno : alunos.getArray()) {
 			if (!inserir(aluno)) {
 				throw new AlunoNaoInseridoExcecao(aluno.getMatricula());
 			}
@@ -48,7 +51,7 @@ public class Ranking {
 		return true;
 	}
 
-	public boolean atualizar(Aluno aluno) throws AlunoNaoAtualizadoExcecao, HistoricoVazioExcessao {
+	public boolean atualizar(Aluno aluno) throws AlunoNaoAtualizadoExcecao, HistoricoVazioExcecao, IRAInvalidoExcecao {
 		String matricula = aluno.getMatricula();
 		Conceito conceito = new Conceito(matricula, aluno.calculaIRA());
 		Character c = conceito.getConceito();
@@ -62,8 +65,8 @@ public class Ranking {
 		throw new AlunoNaoAtualizadoExcecao(matricula);
 	}
 
-	public boolean atualizar(ArrayList<Aluno> alunos) throws AlunoNaoAtualizadoExcecao, HistoricoVazioExcessao {
-		for (Aluno aluno : alunos) {
+	public boolean atualizar(ListaGenerica<Aluno> alunos) throws AlunoNaoAtualizadoExcecao, HistoricoVazioExcecao, IRAInvalidoExcecao {
+		for (Aluno aluno : alunos.getArray()) {
 			if (!atualizar(aluno)) {
 				throw new AlunoNaoAtualizadoExcecao(aluno.getMatricula());
 			}
@@ -71,7 +74,7 @@ public class Ranking {
 		return true;
 	}
 
-	public Character getConceitoAluno(Aluno aluno) throws HistoricoVazioExcessao {
+	public Character getConceitoAluno(Aluno aluno) throws HistoricoVazioExcecao, IRAInvalidoExcecao {
 		Conceito conceito = new Conceito(aluno.getMatricula(), aluno.calculaIRA());
 
 		if (ranking.containsKey(conceito))
@@ -79,20 +82,42 @@ public class Ranking {
 		return null;
 	}
 
-	public String toString() {
-		ArrayList<Conceito> conceitos = new ArrayList<>();
+	public String rankingCrescente() {
+		ListaGenerica<Conceito> conceitos = new ListaGenerica<>();
 		String resultado = "";
-		
-		for(Conceito conceito : ranking.keySet()) {
-			conceitos.add(conceito);
+
+		for (Conceito conceito : ranking.keySet()) {
+			conceitos.adicionar(conceito);
 		}
 		
-		conceitos.sort(new CriterioValorDecrescente());
-		
-		for(Conceito conceito : conceitos) {
+		ListaGenerica<Conceito> copia = conceitos.ordenar(new CriterioValorCrescente());
+
+		for (Conceito conceito : copia) {
 			resultado += "\n" + conceito + " : " + ranking.get(conceito);
 		}
-		
+
 		return resultado;
 	}
+
+	public String rankingDecrescente() {
+		ListaGenerica<Conceito> conceitos = new ListaGenerica<>();
+		String resultado = "";
+
+		for (Conceito conceito : ranking.keySet()) {
+			conceitos.adicionar(conceito);
+		}
+
+		ListaGenerica<Conceito> copia = conceitos.ordenar(new CriterioValorDecrescente());
+
+		for (Conceito conceito : copia) {
+			resultado += "\n" + conceito + " : " + ranking.get(conceito);
+		}
+
+		return resultado;
+	}
+
+	public String toString() {
+		return this.rankingDecrescente();
+	}
+
 }

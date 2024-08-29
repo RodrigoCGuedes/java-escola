@@ -1,16 +1,24 @@
 package escola;
 
+import excecao.IRAInvalidoExcecao;
+
+import interfaces.Alfabetico;
 import interfaces.Valor;
 
-public class Conceito implements Comparable<Conceito>, Valor {
+public class Conceito implements Comparable<Conceito>, Valor, Alfabetico{
 
 	private String matricula;
 	private float ira;
 	private Character conceito;
 
-	public Conceito(String matricula, float ira) {
+	public Conceito(String matricula, float ira) throws IRAInvalidoExcecao {
 		this.matricula = matricula;
-		this.ira = ira;
+		if(ira >= 0 && ira <= 10) {
+			this.ira = ira;
+		}
+		else {
+			throw new IRAInvalidoExcecao(matricula);
+		}
 		this.conceito = Conceito.calculaConceito(ira);
 	}
 
@@ -36,20 +44,28 @@ public class Conceito implements Comparable<Conceito>, Valor {
 	public float getValor() {
 		return this.ira;
 	}
+	
+	public String getNome() {
+		return this.matricula;
+	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
+		if (this == o) {
 			return true;
-		if (o == null)
+		}
+		if (o == null) {
 			return false;
-		if (o.getClass() != this.getClass())
+		}
+		if (o.getClass() != this.getClass()) {
 			return false;
+		}
 
 		Conceito conceito = (Conceito) o;
 
-		if (this.matricula.equals(conceito.getMatricula()))
+		if (this.matricula.equals(conceito.getMatricula())) {
 			return true;
+		}
 
 		return false;
 	}

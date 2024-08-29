@@ -1,5 +1,5 @@
 package interfaces;
 
-public interface Alfabetica {
+public interface Alfabetico {
 	public String getNome();
 }

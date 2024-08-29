@@ -2,7 +2,7 @@ package escola;
 
 import interfaces.Membro;
 
-public class ProfessorSubstituto extends Professor implements Membro{
+public class ProfessorSubstituto extends Professor implements Membro {
 
 	// --> Atributos
 

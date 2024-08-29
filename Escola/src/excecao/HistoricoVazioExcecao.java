@@ -1,12 +1,12 @@
 package excecao;
 
-public class HistoricoVazioExcessao extends Exception {
+public class HistoricoVazioExcecao extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String mensagem;
 	
-	public HistoricoVazioExcessao(String matricula) {
+	public HistoricoVazioExcecao(String matricula) {
 		this.mensagem = "Erro - Histórico vazio -> Matricula: " + matricula;
 	}
 	

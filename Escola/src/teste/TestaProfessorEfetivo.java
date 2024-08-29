@@ -20,6 +20,9 @@ public class TestaProfessorEfetivo {
 		ProfessorEfetivo professor2 = new ProfessorEfetivo(professor1);
 
 		System.out.println(professor1);
+		
+		System.out.println("\nCopia: ");
+		
 		System.out.println("\n" + professor2);
 
 		// Testando Encapsulamento
